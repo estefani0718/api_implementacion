@@ -1,10 +1,10 @@
 import connection from "../utils/db.js";
 
 class Categoria{
-    constructor(nombre, descripcion){
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-    }
+    // constructor(nombre, descripcion){
+    //     this.nombre = nombre;
+    //     this.descripcion = descripcion;
+    // }
     /**
      * Método para obtener los registros de la base de datos
      * @returns {Array} Listado de las categorias en un arreglo
@@ -30,14 +30,14 @@ class Categoria{
           throw new Error("Error al crear la categoría");  
         }
   }
- async update(id) {
+ async update(nombre,descripcion,id) {
     try {
-      console.log("desde la clase ", this.nombre, this.descripcion, id);
+      console.log("desde la clase ", nombre, descripcion, id);
       const [result] = await connection.query(`UPDATE categorias set (nombre=? ,descripcion=?) WHERE id=?`,[this.nombre, this.descripcion, id]);
       if (result.affectedRows === 0) {
           throw new Error("categoria n encontrada");
       }
-      return {id,nombre:this.nombre,descripcion:this.descripcion}
+      return {id,nombre,descripcion}
     } catch (error) {
       console.log(error.message);
        throw new Error("Error al crear la categpría"); 
