@@ -47,7 +47,7 @@ class Productos{
        throw new Error("Error al crear la categpría"); 
     }
    
-  }+
+  }
 }
 
 export default Categoria;
