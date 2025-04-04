@@ -68,7 +68,7 @@ class Categoria{
     // metodo el cual esta relacionada con la otra tabla productos 
     async categoriaConProducto(categoria_id){
       const [productos]=await connection.query("SELECT  * FROM productos WHERE categoria_id=? ",[categoria_id]);
-      return productos.length>0;
+      return productos.length>0;// devuelve si verdadero o falso si hay o no productos relacionados 
     }
     async delete(id) {
       try {
