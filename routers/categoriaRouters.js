@@ -4,13 +4,6 @@ import { validarCategoria } from "../middlewars/validadarCategoria.js";
 
 const router = express.Router();
 
-// router.get('/', CategoriaController.getAllCategorias);
-
-// router.post('/', validarCategoria, CategoriaController.createCategoria);
-
-// router.put('/:id', CategoriaController.actualizarParcialCategoria );
-
-
 router.get('/', CategoriaController.getAllCategorias);
 
 router.post('/',validarCategoria, CategoriaController.createCategoria)
