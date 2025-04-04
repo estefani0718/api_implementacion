@@ -1,5 +1,5 @@
 import connection from "../utils/db.js";
-
+//  clase categoria el padre de todo 
 class Categoria{
     // constructor(nombre, descripcion){
     //     this.nombre = nombre;
@@ -9,6 +9,7 @@ class Categoria{
      * Método para obtener los registros de la base de datos
      * @returns {Array} Listado de las categorias en un arreglo
      */
+    // metodos crud 
     async getAll(){
         try {
             const [rows] = await connection.query("SELECT * FROM categorias");
@@ -18,7 +19,7 @@ class Categoria{
         }        
     }
 
-    async create() {
+    async create(nombre,descripcion) {
         try {            
             const [result] = await connection.query("INSERT INTO categorias (nombre, descripcion) VALUES (?,?)", [nombre, descripcion]);
         return {
@@ -64,15 +65,25 @@ class Categoria{
         throw new Error("ERROR: Al Actualizar la categoria parcialmente");
       }
     }
+    // metodo el cual esta relacionada con la otra tabla productos 
+    async categoriaConProducto(categoria_id){
+      const [productos]=await connection.query("SELECT  * FROM productos WHERE categoria_id=? ",[categoria_id]);
+      return productos.length>0;
+    }
     async delete(id) {
       try {
-        const [result] = await connection.query("DELETE FROM categorias WHERE id = ?",[id]);
+        const comparar= this.categoriaConProducto(id);
+        if(comparar){
+          throw new Error("esta categoria no se puede eliminar por que esta relacionada con productos ");
+        }
+
+        const [result] = await connection.query("DELETE * FROM categorias WHERE id = ?",[id]);
         if (result.affectedRows === 0) {
           throw new Error("Categoria no encontrada");
         }
-        return { mensaje: "Categoria Eliminada con Exito" }
+        return { mensaje: "Categoria fue eliminada " }
       } catch (error) {
-        throw new Error("ERROR: Al Eliminar la categoria");
+        throw new Error("ERROR:  al eliminar la categoria");
       }
     }
 }

@@ -3,7 +3,7 @@ import Producto from "../model/productos.js";
 
 class ProductoController {
 
-    
+    // metodos  crud : crear , actualizar , actualizar parcialmente , eliminar 
    static getAllProductos = async (req, res) => {
     const OBJProducto = new Producto();
     const productos = await OBJProducto.getAll();
